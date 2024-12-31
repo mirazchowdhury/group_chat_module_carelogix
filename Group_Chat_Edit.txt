@@ -1,0 +1,59 @@
+package GC_MC_edit;
+
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+public class GroupChatEdit {
+    public static void main(String[] args) {
+        System.setProperty("webdriver.chrome.driver", "C:\\Users\\User\\Downloads\\chromedriver-win64\\chromedriver.exe");
+        WebDriver driver = new ChromeDriver();
+        
+        // Open the login page
+        driver.get("https://hachnat.stage-carelogix.de/sing-in");
+        
+        try {
+            // Log in using username and password
+            WebElement username = driver.findElement(By.id("credential"));
+            WebElement pass = driver.findElement(By.id("password"));
+            WebElement signin = driver.findElement(By.className("ant-btn-primary"));
+            
+            username.sendKeys("miraj074");
+            pass.sendKeys("Carelogix24!!");
+            signin.click();
+            
+            // Wait for the page to load after login (can be optimized with WebDriverWait)
+            Thread.sleep(5000); // Wait for 5 seconds for the page to load (use WebDriverWait for better practice)
+
+            // Navigate to the Group creation section (you'll need the correct XPath for the link/button)
+            WebElement createGroupButton = driver.findElement(By.xpath("//button[contains(text(),'Create Group')]"));
+            createGroupButton.click();
+            
+            // Wait for the Group creation page to load
+            Thread.sleep(3000);
+            
+            // Fill in the group details (replace with the correct XPath for the fields)
+            WebElement groupNameField = driver.findElement(By.xpath("//input[@name='groupName']"));
+            WebElement groupDescriptionField = driver.findElement(By.xpath("//textarea[@name='description']"));
+            WebElement submitButton = driver.findElement(By.xpath("//button[contains(text(),'Submit')]"));
+            
+            // Input group details
+            groupNameField.sendKeys("New Group");
+            groupDescriptionField.sendKeys("This is a new group for testing purposes.");
+            
+            // Submit the form to create the group
+            submitButton.click();
+            
+            // Optionally, you can add a confirmation check
+            Thread.sleep(3000); // Wait for the action to complete
+            System.out.println("Group created successfully!");
+
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        } finally {
+            // Close the driver
+            driver.quit();
+        }
+    }
+}
